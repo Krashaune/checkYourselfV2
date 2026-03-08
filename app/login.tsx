@@ -15,7 +15,7 @@ import { SPOTIFY_CLIENT_ID, SPOTIFY_DISCOVERY, SPOTIFY_SCOPES } from '../constan
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
-  const redirectUri = AuthSession.makeRedirectUri({ scheme: 'checkyourself' });
+  const redirectUri = AuthSession.makeRedirectUri({ scheme: 'check-yourself-login', path: 'auth' });
 
   const [request, response, promptAsync] = AuthSession.useAuthRequest(
     {
@@ -31,34 +31,40 @@ export default function LoginScreen() {
     if (response?.type === 'success') {
       const { code } = response.params;
       exchangeCodeForToken(code);
+    } else if (response?.type === 'error') {
+      // OAuth error — response.error contains details
     }
   }, [response]);
 
   async function exchangeCodeForToken(code: string) {
     if (!request?.codeVerifier) return;
 
-    const tokenResponse = await fetch(SPOTIFY_DISCOVERY.tokenEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        grant_type: 'authorization_code',
-        code,
-        redirect_uri: redirectUri,
-        client_id: SPOTIFY_CLIENT_ID,
-        code_verifier: request.codeVerifier,
-      }).toString(),
-    });
+    try {
+      const tokenResponse = await fetch(SPOTIFY_DISCOVERY.tokenEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'authorization_code',
+          code,
+          redirect_uri: redirectUri,
+          client_id: SPOTIFY_CLIENT_ID,
+          code_verifier: request.codeVerifier,
+        }).toString(),
+      });
 
-    const data = await tokenResponse.json();
+      const data = await tokenResponse.json();
 
-    if (data.access_token) {
-      const expiry = Date.now() + data.expires_in * 1000;
-      await AsyncStorage.setItem('spotify_token', data.access_token);
-      await AsyncStorage.setItem('spotify_token_expiry', expiry.toString());
-      if (data.refresh_token) {
-        await AsyncStorage.setItem('spotify_refresh_token', data.refresh_token);
+      if (data.access_token) {
+        const expiry = Date.now() + data.expires_in * 1000;
+        await AsyncStorage.setItem('spotify_token', data.access_token);
+        await AsyncStorage.setItem('spotify_token_expiry', expiry.toString());
+        if (data.refresh_token) {
+          await AsyncStorage.setItem('spotify_refresh_token', data.refresh_token);
+        }
+        router.replace('/home');
       }
-      router.replace('/home');
+    } catch (err) {
+      // token exchange failed
     }
   }
 

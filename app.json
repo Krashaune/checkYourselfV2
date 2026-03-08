@@ -4,7 +4,7 @@
     "slug": "checkYourselfRN",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "checkyourself",
+    "scheme": "check-yourself-login",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "splash": {
