@@ -51,7 +51,7 @@ export default function CheckInScreen() {
         }}
       />
 
-      <TouchableOpacity
+      {selected && <TouchableOpacity
         style={[styles.continueButton, !selected && styles.buttonDisabled]}
         onPress={handleContinue}
         disabled={!selected}
@@ -59,7 +59,7 @@ export default function CheckInScreen() {
         <Text style={styles.continueButtonText}>
           {selected ? `I feel ${selected}` : 'Select a feeling'}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity>}
     </View>
   );
 }

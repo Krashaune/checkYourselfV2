@@ -14,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.kiera.checkyourself"
+      "bundleIdentifier": "com.kiera.checkyourself",
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": ["spotify"]
+      }
     },
     "android": {
       "package": "com.kiera.checkyourself",
