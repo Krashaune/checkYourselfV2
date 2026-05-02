@@ -95,10 +95,21 @@ export default function MusicScreen() {
   }
 
   async function openPlaylist() {
-    if (!playlistUrl) return;
     const spotifyDeepLink = `spotify://playlist/${playlistId}`;
-    const canOpen = await Linking.canOpenURL(spotifyDeepLink);
-    Linking.openURL(canOpen ? spotifyDeepLink : playlistUrl);
+    try {
+      const canOpen = await Linking.canOpenURL(spotifyDeepLink);
+      if (canOpen) {
+        await Linking.openURL(spotifyDeepLink);
+        return;
+      }
+    } catch {
+      // TODO: Handle error (e.g. log it) - 
+      // fallback to web URL if deep link fails
+      // scheme not in LSApplicationQueriesSchemes or Spotify not installed
+    }
+    if (playlistUrl) {
+      Linking.openURL(playlistUrl);
+    }
   }
 
   if (loading) {
@@ -144,9 +155,8 @@ export default function MusicScreen() {
 
       <View style={styles.footer}>
         <TouchableOpacity
-          style={[styles.playButton, !playlistUrl && styles.buttonDisabled]}
+          style={styles.playButton}
           onPress={openPlaylist}
-          disabled={!playlistUrl}
         >
           <Text style={styles.playButtonText}>Open in Spotify</Text>
         </TouchableOpacity>
