@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   arrow: {
+    fontFamily: 'Nunito_700Bold',
     color: colors.tigerEye,
     fontSize: 26,
-    fontWeight: '700',
   },
 });

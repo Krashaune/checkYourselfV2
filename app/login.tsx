@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import { Image } from 'react-native';
 import { router } from 'expo-router';
 import { useEffect } from 'react';
 import {
   ActivityIndicator,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -75,7 +75,8 @@ export default function LoginScreen() {
       <View style={styles.crystalArea}>
         <Image
           source={require('../assets/purple-crystal.png')}
-          style={{ width: 400, height: 400 }}
+          style={{ width: 480, height: 500 }}
+          resizeMode="contain"
         />
       </View>
 

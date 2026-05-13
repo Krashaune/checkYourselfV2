@@ -113,8 +113,6 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: radii.md,
     alignItems: 'center',
-    width: '100%',
-    alignSelf: 'center',
   },
   continueActive: {
     backgroundColor: colors.amethyst,
