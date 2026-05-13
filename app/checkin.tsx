@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import { emotionCellColors, emotions } from '../constants/emotions';
+import { colors, radii } from '../constants/theme';
 
 export default function CheckInScreen() {
   const [selected, setSelected] = useState<string | null>(null);
@@ -51,15 +52,16 @@ export default function CheckInScreen() {
         }}
       />
 
-      {selected && <TouchableOpacity
-        style={[styles.continueButton, !selected && styles.buttonDisabled]}
+      <TouchableOpacity
+        style={[styles.continueButton, selected ? styles.continueActive : styles.continueEmpty]}
         onPress={handleContinue}
         disabled={!selected}
+        activeOpacity={0.85}
       >
-        <Text style={styles.continueButtonText}>
+        <Text style={[styles.continueButtonText, !selected && styles.continueTextEmpty]}>
           {selected ? `I feel ${selected}` : 'Select a feeling'}
         </Text>
-      </TouchableOpacity>}
+      </TouchableOpacity>
     </View>
   );
 }
@@ -67,16 +69,16 @@ export default function CheckInScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: colors.parchment,
     paddingHorizontal: 12,
     paddingTop: 16,
   },
   heading: {
-    color: '#cccccc',
-    fontSize: 15,
+    fontFamily: 'Nunito_400Regular',
+    color: colors.onParchment3,
+    fontSize: 13,
     textAlign: 'center',
     marginBottom: 16,
-    letterSpacing: 0.5,
   },
   grid: {
     paddingBottom: 16,
@@ -88,8 +90,8 @@ const styles = StyleSheet.create({
   cell: {
     flex: 1,
     marginHorizontal: 3,
-    height: 64,
-    borderRadius: 8,
+    height: 54,
+    borderRadius: radii.sm,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 4,
@@ -100,25 +102,30 @@ const styles = StyleSheet.create({
     transform: [{ scale: 1.05 }],
   },
   cellText: {
-    color: '#1a1a2e',
-    fontSize: 11,
-    fontWeight: '700',
+    fontFamily: 'Nunito_700Bold',
+    color: colors.onMood,
+    fontSize: 10,
     textAlign: 'center',
   },
   continueButton: {
-    backgroundColor: '#1DB954',
     marginHorizontal: 12,
     marginBottom: 32,
-    paddingVertical: 16,
-    borderRadius: 14,
+    paddingVertical: 14,
+    borderRadius: radii.md,
     alignItems: 'center',
   },
-  buttonDisabled: {
-    backgroundColor: '#333333',
+  continueActive: {
+    backgroundColor: colors.amethyst,
+  },
+  continueEmpty: {
+    backgroundColor: colors.parchmentSoft,
   },
   continueButtonText: {
-    color: '#000000',
+    fontFamily: 'Nunito_700Bold',
+    color: colors.onAmethyst,
     fontSize: 16,
-    fontWeight: 'bold',
+  },
+  continueTextEmpty: {
+    color: colors.onParchmentDis,
   },
 });

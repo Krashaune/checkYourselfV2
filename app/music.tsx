@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { colors, radii } from '../constants/theme';
 
 interface Track {
   name: string;
@@ -103,9 +104,7 @@ export default function MusicScreen() {
         return;
       }
     } catch {
-      // TODO: Handle error (e.g. log it) - 
       // fallback to web URL if deep link fails
-      // scheme not in LSApplicationQueriesSchemes or Spotify not installed
     }
     if (playlistUrl) {
       Linking.openURL(playlistUrl);
@@ -115,7 +114,7 @@ export default function MusicScreen() {
   if (loading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#1DB954" />
+        <ActivityIndicator size="large" color={colors.amethyst} />
         <Text style={styles.loadingText}>Loading tracks...</Text>
       </View>
     );
@@ -157,6 +156,7 @@ export default function MusicScreen() {
         <TouchableOpacity
           style={styles.playButton}
           onPress={openPlaylist}
+          activeOpacity={0.8}
         >
           <Text style={styles.playButtonText}>Open in Spotify</Text>
         </TouchableOpacity>
@@ -168,21 +168,23 @@ export default function MusicScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: colors.parchment,
   },
   centered: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: colors.parchment,
     alignItems: 'center',
     justifyContent: 'center',
     gap: 16,
   },
   loadingText: {
-    color: '#aaaaaa',
+    fontFamily: 'Nunito_400Regular',
+    color: colors.onParchment3,
     fontSize: 14,
   },
   errorText: {
-    color: '#e74c3c',
+    fontFamily: 'Nunito_400Regular',
+    color: colors.error,
     fontSize: 15,
     textAlign: 'center',
     paddingHorizontal: 32,
@@ -193,23 +195,25 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
   },
   playlistLabel: {
-    color: '#888888',
-    fontSize: 13,
+    fontFamily: 'Nunito_700Bold',
+    color: colors.onParchment3,
+    fontSize: 11,
     textTransform: 'uppercase',
-    letterSpacing: 2,
+    letterSpacing: 2.75,
     marginBottom: 20,
   },
   trackRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14,
+    paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#222244',
+    borderBottomColor: colors.parchmentDeep,
   },
   trackNumber: {
-    color: '#555555',
-    fontSize: 13,
-    width: 28,
+    fontFamily: 'JetBrainsMono_400Regular',
+    color: colors.onParchment4,
+    fontSize: 12,
+    width: 26,
     textAlign: 'center',
   },
   trackInfo: {
@@ -217,38 +221,35 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   trackName: {
-    color: '#ffffff',
-    fontSize: 15,
-    fontWeight: '600',
-    marginBottom: 3,
+    fontFamily: 'Nunito_700Bold',
+    color: colors.onParchment,
+    fontSize: 14,
+    marginBottom: 2,
   },
   trackArtist: {
-    color: '#888888',
-    fontSize: 13,
+    fontFamily: 'Nunito_400Regular',
+    color: colors.onParchment3,
+    fontSize: 12,
   },
   footer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 24,
-    backgroundColor: '#1a1a2e',
+    padding: 20,
+    backgroundColor: colors.parchment,
     borderTopWidth: 1,
-    borderTopColor: '#222244',
+    borderTopColor: colors.parchmentDeep,
   },
   playButton: {
-    backgroundColor: '#1DB954',
+    backgroundColor: colors.amethyst,
     paddingVertical: 16,
-    borderRadius: 50,
+    borderRadius: radii.pill,
     alignItems: 'center',
   },
-  buttonDisabled: {
-    opacity: 0.5,
-  },
   playButtonText: {
-    color: '#000000',
-    fontSize: 16,
-    fontWeight: 'bold',
-    letterSpacing: 0.5,
+    fontFamily: 'Nunito_700Bold',
+    color: colors.onAmethyst,
+    fontSize: 15,
   },
 });

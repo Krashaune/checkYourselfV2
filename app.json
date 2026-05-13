@@ -6,11 +6,11 @@
     "orientation": "portrait",
     "scheme": "check-yourself-login",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#1a1a2e"
+      "backgroundColor": "#f4e6d2"
     },
     "ios": {
       "supportsTablet": false,
@@ -30,7 +30,7 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/web-favicon.png"
     },
     "plugins": [
       "expo-router"

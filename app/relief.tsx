@@ -1,5 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { colors, radii } from '../constants/theme';
 
 export default function ReliefScreen() {
   const { emotion } = useLocalSearchParams<{ emotion: string }>();
@@ -7,7 +8,7 @@ export default function ReliefScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.emotionBadge}>
-        <Text style={styles.emotionLabel}>You feel</Text>
+        <Text style={styles.emotionEyebrow}>YOU FEEL</Text>
         <Text style={styles.emotionText}>{emotion}</Text>
       </View>
 
@@ -15,8 +16,9 @@ export default function ReliefScreen() {
 
       <View style={styles.options}>
         <TouchableOpacity
-          style={[styles.optionCard, styles.wellnessCard]}
+          style={styles.optionCard}
           onPress={() => router.push({ pathname: '/wellness', params: { emotion } })}
+          activeOpacity={0.85}
         >
           <Text style={styles.optionEmoji}>🎵</Text>
           <Text style={styles.optionTitle}>Music</Text>
@@ -26,8 +28,9 @@ export default function ReliefScreen() {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.optionCard, styles.sulkCard]}
+          style={styles.optionCard}
           onPress={() => router.push('/sulk')}
+          activeOpacity={0.85}
         >
           <Text style={styles.optionEmoji}>💭</Text>
           <Text style={styles.optionTitle}>Affirmations</Text>
@@ -43,69 +46,64 @@ export default function ReliefScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: colors.parchment,
     paddingHorizontal: 24,
-    paddingVertical: 32,
+    paddingTop: 24,
+    paddingBottom: 32,
   },
   emotionBadge: {
-    backgroundColor: '#16213e',
-    borderRadius: 16,
-    paddingVertical: 20,
-    paddingHorizontal: 24,
+    backgroundColor: colors.cocoaDeep,
+    borderRadius: radii.lg,
+    paddingVertical: 18,
+    paddingHorizontal: 22,
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 24,
   },
-  emotionLabel: {
-    color: '#888888',
-    fontSize: 13,
+  emotionEyebrow: {
+    fontFamily: 'Nunito_600SemiBold',
+    color: colors.onCocoa2,
+    fontSize: 11,
     textTransform: 'uppercase',
-    letterSpacing: 2,
+    letterSpacing: 2.75,
     marginBottom: 6,
   },
   emotionText: {
-    color: '#ffffff',
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontFamily: 'Nunito_800ExtraBold',
+    color: colors.onCocoa,
+    fontSize: 30,
   },
   prompt: {
-    color: '#cccccc',
-    fontSize: 18,
+    fontFamily: 'Nunito_400Regular',
+    color: colors.onParchment2,
+    fontSize: 15,
     textAlign: 'center',
-    marginBottom: 32,
+    marginBottom: 20,
   },
   options: {
     flex: 1,
-    gap: 16,
+    gap: 14,
   },
   optionCard: {
     flex: 1,
-    borderRadius: 20,
-    padding: 28,
+    backgroundColor: colors.cocoa,
+    borderRadius: radii.xl,
+    padding: 22,
     justifyContent: 'center',
   },
-  wellnessCard: {
-    backgroundColor: '#16213e',
-    borderWidth: 1,
-    borderColor: '#1DB954',
-  },
-  sulkCard: {
-    backgroundColor: '#16213e',
-    borderWidth: 1,
-    borderColor: '#9b59b6',
-  },
   optionEmoji: {
-    fontSize: 36,
-    marginBottom: 12,
+    fontSize: 30,
+    marginBottom: 10,
   },
   optionTitle: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 8,
+    fontFamily: 'Nunito_800ExtraBold',
+    color: colors.onCocoa,
+    fontSize: 20,
+    marginBottom: 6,
   },
   optionDescription: {
-    color: '#aaaaaa',
-    fontSize: 14,
-    lineHeight: 22,
+    fontFamily: 'Nunito_400Regular',
+    color: colors.onCocoa2,
+    fontSize: 13,
+    lineHeight: 19,
   },
 });
