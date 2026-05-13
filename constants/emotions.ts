@@ -78,8 +78,8 @@ export const emotions: Emotion[] = [
 ];
 
 export const emotionCellColors: Record<EmotionColor, string> = {
-  red: '#e74c3c',
-  yellow: '#f1c40f',
-  green: '#2ecc71',
-  blue: '#3498db',
+  red:    '#c5615a', // garnet — charged
+  yellow: '#d8a25a', // tiger's eye — energized
+  green:  '#b8a47e', // warm honey — calm
+  blue:   '#9985b8', // amethyst — low
 };

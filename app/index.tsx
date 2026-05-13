@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { colors } from '../constants/theme';
 
 export default function SplashScreen() {
   useEffect(() => {
@@ -23,9 +24,9 @@ export default function SplashScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>CheckYourself</Text>
-      <Text style={styles.subtitle}>check in with yourself</Text>
-      <ActivityIndicator size="large" color="#1DB954" style={styles.spinner} />
+      <Text style={styles.wordmark}>CheckYourself</Text>
+      <Text style={styles.tagline}>check in with yourself</Text>
+      <ActivityIndicator size="small" color={colors.amethyst} style={styles.spinner} />
     </View>
   );
 }
@@ -33,21 +34,22 @@ export default function SplashScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: colors.parchment,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    letterSpacing: 1,
+  wordmark: {
+    fontFamily: 'Caveat_700Bold',
+    fontSize: 46,
+    color: colors.onParchment,
+    letterSpacing: 0.9,
   },
-  subtitle: {
-    fontSize: 14,
-    color: '#aaaaaa',
-    marginTop: 8,
-    letterSpacing: 2,
+  tagline: {
+    fontFamily: 'Nunito_600SemiBold',
+    fontSize: 11,
+    color: colors.onParchment3,
+    marginTop: 6,
+    letterSpacing: 3.3,
     textTransform: 'uppercase',
   },
   spinner: {

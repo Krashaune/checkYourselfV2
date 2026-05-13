@@ -9,10 +9,11 @@ import {
   View,
 } from 'react-native';
 import { affirmations } from '../constants/affirmations';
+import { colors } from '../constants/theme';
 
 const { width } = Dimensions.get('window');
 
-const slideColors = ['#2c1654', '#1a3a5c', '#1a3a2a'];
+const slideColors = [colors.sulkAmethyst, colors.sulkRose, colors.sulkSage];
 
 export default function SulkScreen() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -36,9 +37,9 @@ export default function SulkScreen() {
         {affirmations.map((item, index) => (
           <View
             key={index}
-            style={[styles.slide, { backgroundColor: slideColors[index] ?? '#16213e' }]}
+            style={[styles.slide, { backgroundColor: slideColors[index % slideColors.length] }]}
           >
-            <Text style={styles.quoteMarks}>"</Text>
+            <Text style={styles.quoteMarks}>{'“'}</Text>
             <Text style={styles.affirmationText}>{item.text}</Text>
             {item.author && <Text style={styles.author}>{item.author}</Text>}
           </View>
@@ -63,7 +64,7 @@ export default function SulkScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: colors.parchment,
   },
   scrollView: {
     flex: 1,
@@ -73,33 +74,37 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 40,
-    paddingVertical: 60,
+    paddingHorizontal: 36,
+    paddingVertical: 48,
   },
   quoteMarks: {
-    color: 'rgba(255,255,255,0.2)',
-    fontSize: 120,
-    lineHeight: 100,
+    color: 'rgba(244,230,210,0.18)',
+    fontSize: 140,
+    lineHeight: 120,
     alignSelf: 'flex-start',
-    marginBottom: -20,
+    marginBottom: -24,
+    fontFamily: 'CormorantGaramond_400Regular_Italic',
   },
   affirmationText: {
-    color: '#ffffff',
-    fontSize: 22,
-    lineHeight: 34,
+    fontFamily: 'CormorantGaramond_400Regular_Italic',
+    color: colors.onCocoa,
+    fontSize: 21,
+    lineHeight: 32,
     textAlign: 'center',
-    fontStyle: 'italic',
   },
   author: {
-    color: '#aaaaaa',
-    fontSize: 14,
-    marginTop: 24,
+    fontFamily: 'Nunito_400Regular',
+    color: colors.onCocoa2,
+    fontSize: 13,
+    marginTop: 20,
     letterSpacing: 1,
   },
   pagination: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     paddingVertical: 32,
+    backgroundColor: colors.parchment,
     gap: 10,
   },
   dot: {
@@ -108,9 +113,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   dotActive: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.amethyst,
   },
   dotInactive: {
-    backgroundColor: '#444444',
+    backgroundColor: colors.parchmentDeep,
   },
 });

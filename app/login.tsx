@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
+import { Image } from 'react-native';
 import { router } from 'expo-router';
 import { useEffect } from 'react';
 import {
@@ -11,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { SPOTIFY_CLIENT_ID, SPOTIFY_DISCOVERY, SPOTIFY_SCOPES } from '../constants/spotify';
+import { colors, radii } from '../constants/theme';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -63,32 +65,37 @@ export default function LoginScreen() {
         }
         router.replace('/home');
       }
-    } catch (err) {
+    } catch {
       // token exchange failed
     }
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>CheckYourself</Text>
-        <Text style={styles.subtitle}>check in with yourself</Text>
+      <View style={styles.crystalArea}>
+        <Image
+          source={require('../assets/purple-crystal.png')}
+          style={{ width: 400, height: 400 }}
+        />
       </View>
 
-      <View style={styles.body}>
-        <Text style={styles.prompt}>
-          Connect your Spotify account to get personalized music for your mood.
-        </Text>
+      <View style={styles.card}>
+        <Text style={styles.headline}>{'Feel it.\nName it.\nGet Support.'}</Text>
 
         <TouchableOpacity
-          style={[styles.spotifyButton, !request && styles.buttonDisabled]}
+          style={[styles.loginButton, !request && styles.buttonDisabled]}
           onPress={() => promptAsync()}
           disabled={!request}
+          activeOpacity={0.8}
         >
           {!request ? (
-            <ActivityIndicator color="#000000" />
+            <ActivityIndicator color={colors.onAmethyst} />
           ) : (
-            <Text style={styles.spotifyButtonText}>Login with Spotify</Text>
+            <View style={styles.loginButtonInner}>
+              <Text style={styles.loginButtonText}>Continue with </Text>
+              <SpotifyLogo />
+              <Text style={styles.loginButtonText}> Spotify</Text>
+            </View>
           )}
         </TouchableOpacity>
       </View>
@@ -96,57 +103,89 @@ export default function LoginScreen() {
   );
 }
 
+function SpotifyLogo() {
+  return (
+    <View style={styles.spotifyCircle}>
+      <View style={styles.spotifyBar1} />
+      <View style={styles.spotifyBar2} />
+      <View style={styles.spotifyBar3} />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
-    paddingHorizontal: 32,
+    backgroundColor: colors.parchment,
   },
-  header: {
+  crystalArea: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 42,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    letterSpacing: 1,
+  card: {
+    backgroundColor: colors.cocoaDeep,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingTop: 36,
+    paddingBottom: 52,
+    paddingHorizontal: 36,
+    gap: 32,
   },
-  subtitle: {
-    fontSize: 13,
-    color: '#aaaaaa',
-    marginTop: 8,
-    letterSpacing: 3,
-    textTransform: 'uppercase',
+  headline: {
+    fontFamily: 'Caveat_700Bold',
+    fontSize: 46,
+    color: colors.onCocoa,
+    lineHeight: 56,
+    letterSpacing: 0.92,
   },
-  body: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  prompt: {
-    fontSize: 16,
-    color: '#cccccc',
-    textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 40,
-  },
-  spotifyButton: {
-    backgroundColor: '#1DB954',
-    paddingVertical: 16,
-    paddingHorizontal: 48,
-    borderRadius: 50,
-    alignItems: 'center',
-    minWidth: 220,
+  loginButton: {
+    backgroundColor: colors.amethyst,
+    paddingVertical: 15,
+    paddingHorizontal: 28,
+    borderRadius: radii.pill,
+    alignSelf: 'flex-start',
   },
   buttonDisabled: {
-    opacity: 0.6,
+    opacity: 0.7,
   },
-  spotifyButtonText: {
-    color: '#000000',
-    fontSize: 16,
-    fontWeight: 'bold',
-    letterSpacing: 0.5,
+  loginButtonInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  loginButtonText: {
+    fontFamily: 'Nunito_700Bold',
+    color: colors.onAmethyst,
+    fontSize: 15,
+    letterSpacing: 0.45,
+  },
+  spotifyCircle: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: colors.onAmethyst,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 2,
+    paddingHorizontal: 4,
+  },
+  spotifyBar1: {
+    width: '100%',
+    height: 2,
+    borderRadius: 1,
+    backgroundColor: colors.amethyst,
+  },
+  spotifyBar2: {
+    width: '80%',
+    height: 2,
+    borderRadius: 1,
+    backgroundColor: colors.amethyst,
+  },
+  spotifyBar3: {
+    width: '60%',
+    height: 2,
+    borderRadius: 1,
+    backgroundColor: colors.amethyst,
   },
 });

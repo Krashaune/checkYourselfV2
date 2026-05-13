@@ -1,6 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { playlists } from '../constants/playlists';
+import { colors, radii } from '../constants/theme';
 
 export default function WellnessScreen() {
   const { emotion } = useLocalSearchParams<{ emotion: string }>();
@@ -24,7 +25,7 @@ export default function WellnessScreen() {
               params: { playlistId: playlist.id, playlistName: playlist.label },
             })
           }
-          activeOpacity={0.8}
+          activeOpacity={0.85}
         >
           <Text style={styles.cardEmoji}>{playlist.emoji}</Text>
           <View style={styles.cardText}>
@@ -41,52 +42,56 @@ export default function WellnessScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: colors.parchment,
   },
   content: {
     paddingHorizontal: 24,
-    paddingVertical: 32,
+    paddingTop: 24,
+    paddingBottom: 32,
   },
   heading: {
-    color: '#ffffff',
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 8,
+    fontFamily: 'Nunito_800ExtraBold',
+    color: colors.onParchment,
+    fontSize: 24,
+    marginBottom: 6,
   },
   subheading: {
-    color: '#aaaaaa',
-    fontSize: 14,
-    marginBottom: 32,
+    fontFamily: 'Nunito_400Regular',
+    color: colors.onParchment3,
+    fontSize: 13,
     lineHeight: 20,
+    marginBottom: 24,
   },
   card: {
-    backgroundColor: '#16213e',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 14,
+    backgroundColor: colors.cocoa,
+    borderRadius: radii.lg,
+    paddingVertical: 16,
+    paddingHorizontal: 18,
+    marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
   },
   cardEmoji: {
-    fontSize: 36,
+    fontSize: 30,
     marginRight: 16,
   },
   cardText: {
     flex: 1,
   },
   cardTitle: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 4,
+    fontFamily: 'Nunito_800ExtraBold',
+    color: colors.onCocoa,
+    fontSize: 16,
+    marginBottom: 3,
   },
   cardDescription: {
-    color: '#888888',
-    fontSize: 13,
+    fontFamily: 'Nunito_400Regular',
+    color: colors.onCocoa2,
+    fontSize: 12,
   },
   arrow: {
-    color: '#1DB954',
-    fontSize: 28,
-    fontWeight: 'bold',
+    color: colors.tigerEye,
+    fontSize: 26,
+    fontWeight: '700',
   },
 });
